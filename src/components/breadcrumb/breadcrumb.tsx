@@ -4,6 +4,7 @@ import { BreadcrumbsProps } from "./breadcrumb.type";
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   datas,
   variant = "medium",
+  separator = "/",
 }) => {
   const variantSize = {
     small: "text-sm py-1",
@@ -15,11 +16,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     <nav aria-label="breadcrumb">
       <ol className={`flex space-x-2 ${variantSize[variant]}`}>
         {datas.map((item, index) => (
-          <li key={index}>
+          <li key={index} className="flex items-center">
             <Link legacyBehavior href={item.path}>
-              <a className="text-black-500 ">{item.title}</a>
+              <a className="text-black-500 font-bold">{item.title}</a>
             </Link>
-            {index < datas.length - 1 && <span className="mx-2">></span>}
+            {index < datas.length - 1 && (
+              <span className="mx-2">{separator}</span>
+            )}
           </li>
         ))}
       </ol>

@@ -20,7 +20,11 @@ const meta: Meta<typeof Toast> = {
     },
     type: {
       control: "select",
-      options: ["information", "notification"],
+      options: ["information", "notification", "maw", "maww"],
+    },
+    icon: {
+      control: "text",
+      description: "Custom icon for the toast, overrides the default icon.",
     },
   },
   args: {
@@ -28,7 +32,6 @@ const meta: Meta<typeof Toast> = {
     variant: "information",
     size: "medium",
     type: "information",
-    duration: 10000000000000,
   },
 };
 
@@ -38,9 +41,6 @@ type Story = StoryObj<ToastProps>;
 export const Default: Story = {
   args: {
     message: "This is a default toast message!",
-    variant: "information",
-    size: "medium",
-    type: "information",
   },
 };
 
@@ -48,37 +48,26 @@ export const Success: Story = {
   args: {
     message: "Success! Operation completed.",
     variant: "success",
-    size: "medium",
+    size: "small",
     type: "notification",
+    icon: "✅"
   },
 };
 
 export const Danger: Story = {
   args: {
     message: "Error! Something went wrong.",
-    variant: "danger",
-    size: "medium",
+    variant: "warning",
     type: "notification",
+    icon: "⚠️"
   },
 };
 
 export const Warning: Story = {
   args: {
     message: "Warning! Please be cautious.",
-    variant: "warning",
+    variant: "danger",
     size: "large",
-    type: "information",
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: "small",
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: "large",
+    icon: "❌"
   },
 };

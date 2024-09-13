@@ -1,46 +1,33 @@
-import React, { useState, useEffect } from "react";
-import { ToastProps } from "./toast.type";
+import React from 'react';
+import { ToastProps } from './toast.type';
+import '../../app/globals.css';
 
-const Toast: React.FC<ToastProps> = ({
-  message,
-  variant = "information",
-  size = "medium",
-  type = "information",
-  duration = 0,
-}) => {
-  const [isVisible, setIsVisible] = useState(false);
+const variantClasses = {
+  success: 'bg-green-500 text-white',
+  danger: 'bg-red-500 text-white',
+  information: 'bg-blue-500 text-white',
+  warning: 'bg-yellow-500 text-black',
+};
 
-  const variantStyles = {
-    success: "bg-green-500 text-white",
-    danger: "bg-red-500 text-white",
-    information: "bg-blue-500 text-white",
-    warning: "bg-yellow-500 text-black",
-  };
+const sizeClasses = {
+  small: 'text-sm p-2',
+  medium: 'text-base p-4',
+  large: 'text-lg p-6',
+};
 
-  const sizeStyles = {
-    small: "p-2 text-sm",
-    medium: "p-4 text-base",
-    large: "p-6 text-lg",
-  };
+const typeIcons = {
+  information: '🛈', 
+  notification: '🔔', 
+  success: '✅', 
+  danger: '⚠️', 
+  eror: '❌',
+};
 
-  useEffect(() => {
-    setIsVisible(true);
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, duration);
-    return () => clearTimeout(timer);
-  }, [duration]);
+const Toast: React.FC<ToastProps> = ({ message, variant, size, type, icon }) => {
   return (
-    <div
-      className={`fixed bottom-5 right-5 transition-opacity duration-500 ${
-        isVisible ? "opacity-100" : "opacity-0"
-      } ${variantStyles[variant]} ${sizeStyles[size]} rounded shadow-lg`}
-      role="alert"
-    >
-      <strong>
-        {type === "notification" ? "Notification: " : "Information: "}
-      </strong>
-      {message}
+    <div className={`flex items-center gap-2 ${variantClasses[variant]} ${sizeClasses[size]} rounded-md`}>
+      <span>{icon || typeIcons[type]}</span>
+      <p>{message}</p>
     </div>
   );
 };
